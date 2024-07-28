@@ -17,8 +17,4 @@
     <ProjectReference Include="..\EarlyRetirement.Infrastructure\EarlyRetirement.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
-
 </Project>

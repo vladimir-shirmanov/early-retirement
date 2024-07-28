@@ -1,4 +1,5 @@
 ﻿using EarlyRetirement.Api.UserManagement.Models;
+using EarlyRetirement.Api.Utils;
 using EarlyRetirement.Application.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +11,7 @@ public static class AuthEndpoints
     public static RouteGroupBuilder MapAuthApi(this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapPost("/register", Register)
-            .AddEndpointFilter(async (context, next) =>
-            {
-                var model = context.GetArgument<RegisterViewModel>(0);
-                var problems = model.Validate();
-                if (problems.Count > 0)
-                {
-                    return TypedResults.ValidationProblem(problems);
-                } 
-                return await next(context);
-            });
+            .AddEndpointFilter<ValidationEndpointFilter<RegisterViewModel>>();
         return groupBuilder;
     }
 

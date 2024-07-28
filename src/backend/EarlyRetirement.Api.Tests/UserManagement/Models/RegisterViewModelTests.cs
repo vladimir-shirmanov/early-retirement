@@ -1,5 +1,4 @@
 ﻿using EarlyRetirement.Api.UserManagement.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace EarlyRetirement.Api.Tests.UserManagement.Models;
 

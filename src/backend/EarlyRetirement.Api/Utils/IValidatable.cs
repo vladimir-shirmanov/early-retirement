@@ -1,4 +1,4 @@
-﻿namespace EarlyRetirement.Api.UserManagement.Models;
+﻿namespace EarlyRetirement.Api.Utils;
 
 public interface IValidatable
 {

@@ -1,4 +1,5 @@
-﻿using EarlyRetirement.Application.Dtos;
+﻿using EarlyRetirement.Api.Utils;
+using EarlyRetirement.Application.Dtos;
 
 namespace EarlyRetirement.Api.UserManagement.Models;
 
