@@ -11,9 +11,9 @@ public interface IHashStrategy
     ValueTask<string> HashPasswordAsync(string data);
 }
 
-public class Sha512HashStrategy(IOptions<SecurityConfiguration> secConfig) : IHashStrategy
+public class Sha512HashStrategy(IOptions<SecurityOptions> secConfig) : IHashStrategy
 {
-    private readonly SecurityConfiguration _secConfig = secConfig.Value;
+    private readonly SecurityOptions _secConfig = secConfig.Value;
     public string HashPassword(string data)
     {
         using var sha512 = SHA512.Create();

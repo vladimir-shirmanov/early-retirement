@@ -12,7 +12,7 @@ public interface IUserManager
 
 public class UserManager(IRepository<User> userRepository,
     IHashStrategy hashStrategy,
-    ILogger<UserManager> _logger) : IUserManager
+    ILogger<UserManager> logger) : IUserManager
 {
     public async Task RegisterUserAsync(RegisterDto model)
     {
@@ -23,6 +23,6 @@ public class UserManager(IRepository<User> userRepository,
             PasswordHash = hashedPassword
         };
         await userRepository.AddAsync(user);
-        _logger.LogInformation("User Registered {@User}", user);
+        logger.LogInformation("User Registered {@User}", user);
     }
 }

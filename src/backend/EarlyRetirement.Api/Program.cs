@@ -1,4 +1,10 @@
+using EarlyRetirement.Application.Utils;
+using EarlyRetirement.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRetirementDb(builder.Configuration);
+builder.Services.AddEarlyRetirementLogic(builder.Configuration);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
