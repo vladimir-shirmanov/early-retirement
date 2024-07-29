@@ -31,3 +31,6 @@ app.MapGroup("users/")
 
 app.Run();
 
+public partial class Program
+{
+}
