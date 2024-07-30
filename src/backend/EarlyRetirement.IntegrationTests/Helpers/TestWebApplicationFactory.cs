@@ -12,7 +12,8 @@ public class TestWebApplicationFactory<TProgram>: WebApplicationFactory<TProgram
         builder.ConfigureAppConfiguration(configurationBuilder =>
         {
             configurationBuilder.Sources.Clear();
-            configurationBuilder.SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            configurationBuilder.SetBasePath(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new ArgumentNullException());
             configurationBuilder.AddJsonFile("appsettings.Integration.json");
         });
         
