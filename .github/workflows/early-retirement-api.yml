@@ -10,6 +10,9 @@ on:
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/backend
     steps:
       - uses: actions/checkout@v4
       - name: Setup .net
@@ -30,6 +33,9 @@ jobs:
       Password: postgrespw
       Connection_String: "Host=localhost;Username=postgres;Password=postgrespw;Database=int-retirement"
     container: mcr.microsoft.com/dotnet/sdk:8.0
+    defaults:
+      run:
+        working-directory: ./src/backend
     services: 
       postgres:
         image: postgres
