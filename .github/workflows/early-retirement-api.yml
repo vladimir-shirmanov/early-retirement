@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-results
-          path: TestResults
+          path: src/backend/TestResults
         if: ${{ always() }}
   integration-tests:
     runs-on: ubuntu-latest
@@ -52,7 +52,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Install ef cli
-        run: dotnet tool install --global dotnet-ef
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
       - name: Apply migrations
         run: dotnet-ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- $ConnectionString
       - name: Run integration tests
@@ -61,5 +63,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-results
-          path: TestResults
+          path: src/backend/TestResults
         if: ${{ always() }}
