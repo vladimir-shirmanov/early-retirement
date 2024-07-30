@@ -56,7 +56,9 @@ jobs:
           export PATH="$PATH:/github/home/.dotnet/tools"
           dotnet tool install --global dotnet-ef
       - name: Apply migrations
-        run: dotnet ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- "$Connection_String"
+        run: |
+          export PATH="$PATH:/github/home/.dotnet/tools"
+          dotnet ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- "$Connection_String"
       - name: Run integration tests
         run: dotnet test --filter "FullyQualifiedName~IntegrationTests" --logger "trx" --results-directory TestResults
       - name: Upload dotnet test results
