@@ -1,0 +1,59 @@
+﻿name: early-retirement-api
+on:
+  push:
+    branches:
+      - "main"
+  pull_request: 
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Test
+        run: dotnet test --filter "FullyQualifiedName\!~IntegrationTests" --logger "trx;logfilename=unittest.trx" --results-directory "TestResults-${{ matrix.dotnet-version }}"
+      - name: Upload dotnet test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-results-${{ matrix.dotnet-version }}
+          path: TestResults-${{ matrix.dotnet-version }}
+        if: ${{ always() }}
+  integration-tests:
+    runs-on: ubuntu-latest
+    env: 
+      Password: postgrespw
+      Connection_String: "Host=localhost;Username=postgres;Password=postgrespw;Database=int-retirement"
+    container: mcr.microsoft.com/dotnet/sdk:8.0
+    services: 
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: $Password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 4
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Install ef cli
+        run: dotnet tool install --global dotnet-ef
+      - name: Apply migrations
+        run: dotnet ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- $ConnectionString
+      - name: Run integration tests
+        run: dotnet test --filter "FullyQualifiedName~IntegrationTests" --logger "trx;logfilename=integrationtest.trx" --results-directory "TestResults-${{ matrix.dotnet-version }}"
+      - name: Upload dotnet test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-results-${{ matrix.dotnet-version }}
+          path: TestResults-${{ matrix.dotnet-version }}
+        if: ${{ always() }}
