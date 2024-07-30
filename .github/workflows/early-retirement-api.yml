@@ -30,7 +30,6 @@ jobs:
   integration-tests:
     runs-on: ubuntu-latest
     env: 
-      Password: postgrespw
       Connection_String: "Host=postgres;Username=postgres;Password=postgrespw;Database=int-retirement"
     container: mcr.microsoft.com/dotnet/sdk:8.0
     defaults:
@@ -40,7 +39,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: $Password
+          POSTGRES_PASSWORD: postgrespw
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
