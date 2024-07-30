@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       Password: postgrespw
-      Connection_String: "Host=localhost;Username=postgres;Password=postgrespw;Database=int-retirement"
+      Connection_String: "Host=postgres;Username=postgres;Password=postgrespw;Database=int-retirement"
     container: mcr.microsoft.com/dotnet/sdk:8.0
     defaults:
       run:
