@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarlyRetirement.Infrastruct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarlyRetirement.Api.Tests", "EarlyRetirement.Api.Tests\EarlyRetirement.Api.Tests.csproj", "{67729B66-151D-4C37-BA40-A1C9B9F76B33}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarlyRetirement.IntegrationTests", "EarlyRetirement.IntegrationTests\EarlyRetirement.IntegrationTests.csproj", "{62AC2D1B-947D-485A-AED6-5843E553C45A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{67729B66-151D-4C37-BA40-A1C9B9F76B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67729B66-151D-4C37-BA40-A1C9B9F76B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67729B66-151D-4C37-BA40-A1C9B9F76B33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62AC2D1B-947D-485A-AED6-5843E553C45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62AC2D1B-947D-485A-AED6-5843E553C45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62AC2D1B-947D-485A-AED6-5843E553C45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62AC2D1B-947D-485A-AED6-5843E553C45A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{22CD3FB7-E8CC-4A08-8654-127E5D69CC76} = {0B7FE6FA-8FA6-4150-B408-B3E15C78EF1D}
@@ -74,5 +80,6 @@ Global
 		{7A646F5B-DDF3-4320-9558-FBAA85328799} = {C04F7066-CFC1-41F7-A175-BF5AA7564262}
 		{DC649881-1AE9-4340-BAB0-281E2BCE4C0F} = {C04F7066-CFC1-41F7-A175-BF5AA7564262}
 		{67729B66-151D-4C37-BA40-A1C9B9F76B33} = {C04F7066-CFC1-41F7-A175-BF5AA7564262}
+		{62AC2D1B-947D-485A-AED6-5843E553C45A} = {C04F7066-CFC1-41F7-A175-BF5AA7564262}
 	EndGlobalSection
 EndGlobal
