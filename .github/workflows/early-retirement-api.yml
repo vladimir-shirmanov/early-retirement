@@ -20,13 +20,7 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - name: Test
-        run: dotnet test --filter "FullyQualifiedName!~IntegrationTests" --logger trx --results-directory TestResults
-      - name: Upload dotnet test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: dotnet-results
-          path: src/backend/TestResults
-        if: ${{ always() }}
+        run: dotnet test --filter "FullyQualifiedName!~IntegrationTests"
   integration-tests:
     runs-on: ubuntu-latest
     env: 
@@ -59,10 +53,4 @@ jobs:
           export PATH="$PATH:/github/home/.dotnet/tools"
           dotnet ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- "$Connection_String"
       - name: Run integration tests
-        run: dotnet test --filter "FullyQualifiedName~IntegrationTests" --logger "trx" --results-directory TestResults
-      - name: Upload dotnet test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: dotnet-results
-          path: src/backend/TestResults
-        if: ${{ always() }}
+        run: dotnet test --filter "FullyQualifiedName~IntegrationTests"
