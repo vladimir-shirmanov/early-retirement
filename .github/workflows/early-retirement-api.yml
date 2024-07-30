@@ -53,6 +53,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install ef cli
         run: |
+          dotnet new tool-manifest 
           dotnet tool install --global dotnet-ef
           dotnet tool restore
       - name: Apply migrations
