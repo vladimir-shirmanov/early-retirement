@@ -57,7 +57,7 @@ jobs:
           dotnet tool install --global dotnet-ef
           dotnet tool restore
       - name: Apply migrations
-        run: dotnet ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- $ConnectionString
+        run: dotnet tool run dotnet-ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- $ConnectionString
       - name: Run integration tests
         run: dotnet test --filter "FullyQualifiedName~IntegrationTests" --logger "trx" --results-directory TestResults
       - name: Upload dotnet test results
