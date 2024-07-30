@@ -51,12 +51,12 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Apply migrations
+      - name: Install ef cli
         run: |
-          dotnet tool install --global dotnet-ef
           export PATH="$PATH:/github/home/.dotnet/tools"
-          dotnet tool restore
-          dotnet ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- $ConnectionString
+          dotnet tool install --global dotnet-ef
+      - name: Apply migrations
+        run: dotnet ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- "$ConnectionString"
       - name: Run integration tests
         run: dotnet test --filter "FullyQualifiedName~IntegrationTests" --logger "trx" --results-directory TestResults
       - name: Upload dotnet test results
