@@ -1,0 +1,56 @@
+﻿name: early-retirement-api
+on:
+  push:
+    branches:
+      - "main"
+  pull_request: 
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/backend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Test
+        run: dotnet test --filter "FullyQualifiedName!~IntegrationTests"
+  integration-tests:
+    runs-on: ubuntu-latest
+    env: 
+      Connection_String: "Host=postgres;Username=postgres;Password=postgrespw;Database=int-retirement"
+    container: mcr.microsoft.com/dotnet/sdk:8.0
+    defaults:
+      run:
+        working-directory: ./src/backend
+    services: 
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgrespw
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 4
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Install ef cli
+        run: |
+          export PATH="$PATH:/github/home/.dotnet/tools"
+          dotnet tool install --global dotnet-ef
+      - name: Apply migrations
+        run: |
+          export PATH="$PATH:/github/home/.dotnet/tools"
+          dotnet ef database update -c EarlyRetirementDbContext -p EarlyRetirement.Infrastructure -- "$Connection_String"
+      - name: Run integration tests
+        run: dotnet test --filter "FullyQualifiedName~IntegrationTests"
